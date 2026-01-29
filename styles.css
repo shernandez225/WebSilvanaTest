@@ -1,0 +1,10 @@
+/*Ej 1: Definimos la tipografía del sitio. */
+
+body{
+    font-family: system-ui, sans-serif;
+}
+
+section{
+    max-width: 720px;
+    background-color: darkorchid;
+}
