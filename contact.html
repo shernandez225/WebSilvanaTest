@@ -3,22 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi sitio con Bootstrap</title>
+  <title>Contacto · Museo Jumex</title>
 
-  <!-- Bootstrap NO se descarga: se carga desde Internet -->
-  <!-- CDN = el navegador pide Bootstrap a otro servidor -->
+  <!-- Bootstrap CDN -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
     rel="stylesheet">
 </head>
 
-<!-- bg-light es una clase de Bootstrap -->
 <body class="bg-light">
 
-    <!-- Header fijo con navegación -->
+  <!-- Header -->
   <header class="bg-primary text-white sticky-top">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">Mi sitio</h1>
+      <h1 class="h4 m-0">Museo Jumex</h1>
 
       <nav class="d-flex gap-3">
         <a href="index.html" class="text-white text-decoration-none">Inicio</a>
@@ -28,26 +26,46 @@
     </div>
   </header>
 
-  <!-- container centra y limita el ancho del contenido -->
+  <!-- Contenido -->
   <main class="container py-5">
 
-    <!-- Esta sección ya tiene estilo sin CSS propio -->
     <section class="bg-white p-4 rounded-4 shadow-sm">
-        <div>
-            <h2>Museo Jumex</h2>
-            <a href="https://www.fundacionjumex.org/es" target="_blank">
-              <img src="resources/jumex.jpg" class="img-fluid rounded-3">
-            </a>
-     
-        </div>
+      <div class="row g-4 align-items-start">
+
+        <!-- Columna izquierda -->
         <div class="col-12 col-md-6">
-            <h2>Aquí está mi review del museo</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <h2>Museo Jumex</h2>
+          <a href="https://www.fundacionjumex.org/es" target="_blank">
+            <img src="resources/jumex.jpg" class="img-fluid rounded-3" alt="Museo Jumex">
+          </a>
         </div>
-<div>
-</section>
-</div>
-      
+
+        <!-- Columna derecha -->
+        <div class="col-12 col-md-6">
+          <h2>Contacto</h2>
+          <p>
+            El Museo Jumex es parte de la Fundación Jumex Arte Contemporáneo y se encuentra
+            en la Ciudad de México.
+          </p>
+
+          <p class="mb-1"><strong>Dirección:</strong><br>
+            Miguel de Cervantes Saavedra 303, Col. Granada, CDMX
+          </p>
+
+          <p class="mb-1"><strong>Sitio web:</strong><br>
+            www.fundacionjumex.org
+          </p>
+
+          <p class="mb-1"><strong>Redes sociales:</strong><br>
+            Instagram: @museojumex<br>
+            Facebook: Museo Jumex
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
 
 </body>
 </html>
