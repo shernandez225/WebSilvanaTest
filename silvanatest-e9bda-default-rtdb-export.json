@@ -1,0 +1,40 @@
+{
+  "contactos": {
+    "-OlHnL70LS5upryuzMVX": {
+      "createdAt": 1770915718045,
+      "email": "shernandez@cocoschool.mx",
+      "mensaje": "Hola quiero reservar una visita! Viernes a las 10:00",
+      "nombre": "Silvana",
+      "page": "http://127.0.0.1:5500/contact.html"
+    },
+    "-OlHtP0iAyLAPBsv-gPZ": {
+      "createdAt": 1770917306821,
+      "diaPreferido": "Viernes",
+      "email": "shernandez@cocoschool.mx",
+      "mensaje": "Holaaa",
+      "nombre": "Silvana",
+      "page": "http://127.0.0.1:5500/contact.html"
+    }
+  },
+  "store": 
+  {"item01":{
+      "nombre":"Tote Bag Museo Jumex",
+      "precio": 299,
+      "categoria": "Clothing",
+      "imagen": "https://picsum.photos/600/400?random=801"
+      },
+    "item02":{
+      "nombre":"Playera Museo Jumex",
+      "precio": 199,
+      "categoria": "Clothing",
+      "imagen": "https://picsum.photos/600/400?random=801"
+
+      },
+    "item03":{
+      "nombre":"Libreta Bag Museo Jumex",
+      "precio": 599,
+      "categoria": "Clothing",
+      "imagen": "https://picsum.photos/600/400?random=801"
+    
+  }}
+}
