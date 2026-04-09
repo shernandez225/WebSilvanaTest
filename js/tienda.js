@@ -1,24 +1,13 @@
-// js/tienda.js
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
 import { db } from "./firebase.js";
+import { addToUserCart } from "./carrito.js";
 
 const grid = document.getElementById("gridProductos");
 const status = document.getElementById("status");
 
-/* Dibuja los productos en pantalla */
 function render(lista) {
   grid.innerHTML = "";
-
-  if (lista.length === 0) {
-    grid.innerHTML = `
-      <div class="col-12">
-        <div class="alert alert-warning">No hay productos para mostrar.</div>
-      </div>
-    `;
-    return;
-  }
-
-  for (const p of lista) {
+for (const p of lista) {
     const col = document.createElement("div");
     col.className = "col-12 col-md-4";
 
@@ -34,38 +23,40 @@ function render(lista) {
             <span class="badge text-bg-dark">${p.categoria}</span>
           </div>
           <p class="text-muted mb-0">$${p.precio}</p>
+            <button class="btn btn-success btn-add" data-id="${p.id}">
+          Agregar
+        </button>
         </div>
       </article>
     `;
 
     grid.appendChild(col);
   }
+ 
+
+  grid.querySelectorAll(".btn-add").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const product = lista.find(p => p.id === btn.dataset.id);
+
+      try {
+        await addToUserCart(product);
+        status.innerHTML = "Producto agregado";
+      } catch (err) {
+        status.innerHTML = err.message;
+      }
+    });
+  });
 }
 
-status.innerHTML = `<div class="alert alert-info">Cargando productos…</div>`;
+onValue(ref(db, "store"), (snapshot) => {
+  const data = snapshot.val();
 
-/* Lectura en tiempo real desde la ruta store */
-onValue(
-  ref(db, "store"),
-  (snapshot) => {
-    const data = snapshot.val();
+  if (!data) return;
 
-    if (!data) {
-      render([]);
-      status.innerHTML = `<div class="alert alert-warning">No hay datos en store.</div>`;
-      return;
-    }
+  const productos = Object.entries(data).map(([id, p]) => ({
+    id,
+    ...p
+  }));
 
-    const productos = Object.entries(data).map(([id, p]) => ({
-      id,
-      ...p
-    }));
-
-    render(productos);
-    status.innerHTML = `<div class="alert alert-success">Productos cargados: ${productos.length}</div>`;
-  },
-  (err) => {
-    console.error(err);
-    status.innerHTML = `<div class="alert alert-danger">Error al leer productos.</div>`;
-  }
-);
+  render(productos);
+});
