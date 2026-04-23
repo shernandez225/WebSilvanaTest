@@ -52,6 +52,14 @@ async function loadProduct() {
         <p>
           Este producto se está cargando dinámicamente desde Firebase Realtime Database.
         </p>
+
+        <!-- Botón que abre el visor 3D -->
+        <button
+          class="btn btn-dark mt-3"
+          data-bs-toggle="modal"
+          data-bs-target="#modal3d">
+          🧊 Ver en 3D
+        </button>
       </div>
     </div>
   `;

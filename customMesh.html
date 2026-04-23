@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clase 3 · Modelo Propio + Interactividad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #07070d;
+      overflow: hidden;
+      font-family: 'Syne', sans-serif;
+      cursor: none;
+    }
+
+    canvas { display: block; }
+
+    /* Cursor personalizado */
+    #cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: #6366f1;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    #cursor.hover {
+      width: 44px;
+      height: 44px;
+      background: rgba(99,102,241,0.2);
+      border: 1px solid #6366f1;
+    }
+
+    /* Info superior */
+    #info {
+      position: fixed;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Hints de interacción */
+    #hints {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 24px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.25);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hint-icon {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    /* Contador de clicks */
+    #contador {
+      position: fixed;
+      top: 28px;
+      right: 36px;
+      color: rgba(255,255,255,0.15);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 10;
+      text-align: right;
+    }
+
+    #contador span {
+      display: block;
+      font-size: 26px;
+      font-weight: 800;
+      color: #6366f1;
+      line-height: 1.1;
+    }
+
+    /* Loading overlay */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #07070d;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+
+    #loader.oculto {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 2px solid rgba(99,102,241,0.2);
+      border-top-color: #6366f1;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .loader-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+
+    #pct { color: #6366f1; font-weight: 700; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loader-label">Cargando modelo <span id="pct">0%</span></div>
+  </div>
+
+  <div id="cursor"></div>
+  <div id="info">Clase 3 · Modelo propio + interactividad</div>
+
+  <div id="contador">
+    clicks
+    <span id="clickNum">0</span>
+  </div>
+
+  <div id="hints">
+    <div class="hint"><div class="hint-icon">🖱</div>mover</div>
+    <div class="hint"><div class="hint-icon">👆</div>click</div>
+    <div class="hint"><div class="hint-icon">✨</div>hover</div>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    // =====================================================
+    // SETUP
+    // =====================================================
+
+    const scene    = new THREE.Scene();
+    const camera   = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    camera.position.set(0, 0, 5);
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(devicePixelRatio);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    document.body.appendChild(renderer.domElement);
+
+
+    // =====================================================
+    // LUCES
+    // =====================================================
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+    const luzPrincipal = new THREE.DirectionalLight(0xffffff, 3);
+    luzPrincipal.position.set(5, 8, 5);
+    scene.add(luzPrincipal);
+
+    const luzMorada = new THREE.PointLight(0x818cf8, 5, 14, 2);
+    luzMorada.position.set(-4, 3, 3);
+    scene.add(luzMorada);
+
+    const luzVerde = new THREE.PointLight(0x34d399, 3, 10, 2);
+    luzVerde.position.set(3, -4, 2);
+    scene.add(luzVerde);
+
+
+    // =====================================================
+    // CARGAR MODELO .GLB
+    //
+    // 🔄 CAMBIA ESTA URL por tu archivo:
+    //    './nombre-de-tu-archivo.glb'
+    //
+    // ⚠️  Necesitas Live Server en VS Code para que funcione
+    //     con archivos locales. No abrirlo con doble click.
+    // =====================================================
+
+    const loader = new GLTFLoader();
+    let modelo = null;
+    let mixer  = null; // para animaciones del modelo
+
+    loader.load(
+      // 🔄 CAMBIA AQUÍ
+      './augusto.gltf',
+
+      // ✅ Modelo cargado
+      (gltf) => {
+        modelo = gltf.scene;
+
+        // Centrar y escalar automáticamente
+        // (cada .glb tiene tamaño diferente, esto lo normaliza)
+        const caja   = new THREE.Box3().setFromObject(modelo);
+        const centro = new THREE.Vector3();
+        const tamaño = new THREE.Vector3();
+        caja.getCenter(centro);
+        caja.getSize(tamaño);
+
+        modelo.position.sub(centro);
+        modelo.scale.setScalar(3 / tamaño.length());
+
+        scene.add(modelo);
+
+        // Si el modelo trae animaciones de Blender, las reproducimos
+        if (gltf.animations.length > 0) {
+          mixer = new THREE.AnimationMixer(modelo);
+          gltf.animations.forEach(clip => mixer.clipAction(clip).play());
+        }
+
+        document.getElementById('loader').classList.add('oculto');
+      },
+
+      // 📊 Progreso de carga
+      (prog) => {
+        if (prog.total > 0) {
+          document.getElementById('pct').textContent =
+            Math.round((prog.loaded / prog.total) * 100) + '%';
+        }
+      },
+
+      // ❌ Error — usamos geometría de respaldo
+      (err) => {
+        console.warn('No se pudo cargar el modelo, usando respaldo.', err);
+        modelo = new THREE.Mesh(
+          new THREE.IcosahedronGeometry(1.2, 1),
+          new THREE.MeshStandardMaterial({ color: 0x6366f1, roughness: 0.2, metalness: 0.8 })
+        );
+        scene.add(modelo);
+        document.getElementById('loader').classList.add('oculto');
+      }
+    );
+
+
+    // =====================================================
+    // RAYCASTER — detecta hover sobre el modelo
+    // =====================================================
+
+    const raycaster   = new THREE.Raycaster();
+    const mousePosNDC = new THREE.Vector2();
+
+    let estaEnHover   = false;
+    let escalaObjetivo = 1;
+    let clicks = 0;
+
+    // Colores para los estados
+    const colorOriginal = new THREE.Color(0x6366f1);
+    const colorHover    = new THREE.Color(0x34d399);
+    const colorClick    = new THREE.Color(0xf59e0b);
+
+    // Función que aplica color a todos los materiales del modelo
+    // (los .glb pueden tener muchos sub-meshes)
+    function aplicarColor(color) {
+      if (!modelo) return;
+      modelo.traverse((hijo) => {
+        if (hijo.isMesh && hijo.material) {
+          // Algunos materiales pueden ser arrays
+          const mats = Array.isArray(hijo.material) ? hijo.material : [hijo.material];
+          mats.forEach(m => {
+            if (m.color) m.color.set(color);
+          });
+        }
+      });
+    }
+
+
+    // =====================================================
+    // CURSOR PERSONALIZADO
+    // =====================================================
+
+    const cursor = document.getElementById('cursor');
+
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+
+      mousePosNDC.x =  (e.clientX / innerWidth)  * 2 - 1;
+      mousePosNDC.y = -(e.clientY / innerHeight) * 2 + 1;
+    });
+
+
+    // =====================================================
+    // CLICK
+    // =====================================================
+
+    const clickNum = document.getElementById('clickNum');
+
+    window.addEventListener('click', () => {
+      if (!estaEnHover || !modelo) return;
+
+      clicks++;
+      clickNum.textContent = clicks;
+
+      escalaObjetivo = 1.35;
+      aplicarColor(colorClick);
+
+      setTimeout(() => {
+        aplicarColor(colorHover);
+        escalaObjetivo = 1.1;
+      }, 300);
+    });
+
+
+    // =====================================================
+    // LOOP
+    // =====================================================
+
+    const reloj = new THREE.Clock();
+
+    function animar() {
+      requestAnimationFrame(animar);
+
+      const delta = reloj.getDelta();
+      const t     = reloj.elapsedTime;
+
+      // Actualizar animaciones del modelo
+      if (mixer) mixer.update(delta);
+
+      if (modelo) {
+
+        // ----- RAYCASTING -----
+        raycaster.setFromCamera(mousePosNDC, camera);
+        const hits = raycaster.intersectObject(modelo, true); // true = incluye hijos
+        const hayHover = hits.length > 0;
+
+        if (hayHover && !estaEnHover) {
+          estaEnHover = true;
+          cursor.classList.add('hover');
+          aplicarColor(colorHover);
+          escalaObjetivo = 1.1;
+        }
+
+        if (!hayHover && estaEnHover) {
+          estaEnHover = false;
+          cursor.classList.remove('hover');
+          aplicarColor(colorOriginal);
+          escalaObjetivo = 1.0;
+        }
+
+        // ----- ESCALA SUAVE -----
+        const s = modelo.scale.x + (escalaObjetivo - modelo.scale.x) * 0.08;
+        modelo.scale.setScalar(s);
+
+        // ----- ROTACIÓN -----
+        modelo.rotation.y += 0.006;
+
+        // ----- INCLINACIÓN SEGÚN MOUSE -----
+        modelo.rotation.x += mousePosNDC.y * 0.008;
+
+        // ----- RESPIRACIÓN -----
+        modelo.position.y = Math.sin(t * 0.7) * 0.08;
+      }
+
+      // Luces en movimiento
+      luzMorada.position.x = Math.sin(t * 0.5) * 5;
+      luzMorada.position.z = Math.cos(t * 0.5) * 4;
+      luzVerde.position.x  = Math.cos(t * 0.3) * 4;
+      luzVerde.position.y  = Math.sin(t * 0.4) * -4;
+
+      renderer.render(scene, camera);
+    }
+
+    animar();
+
+
+    // =====================================================
+    // RESPONSIVE
+    // =====================================================
+
+    window.addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+
+  </script>
+</body>
+</html>
