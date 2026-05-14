@@ -3,153 +3,281 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Acerca · Museo Jumex</title>
+  <title>Artemis Program · Lunar Exploration</title>
 
   <!-- Bootstrap CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet">
 
-  <!-- Tu CSS -->
+  <!-- CSS -->
   <link href="styles.css" rel="stylesheet">
+
+  <style>
+
+    .program-hero{
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 5rem 4rem;
+      margin-bottom: 3rem;
+
+      background:
+        radial-gradient(circle at top left, rgba(123,97,255,0.35), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(106,226,255,0.18), transparent 30%),
+        linear-gradient(145deg, #0b1020, #11192e);
+
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    .program-hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity:0.15;
+      pointer-events:none;
+    }
+
+    .program-label{
+      position: relative;
+      z-index: 2;
+
+      font-size: 12px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: #7b61ff;
+      font-weight: 700;
+
+      margin-bottom: 1rem;
+    }
+
+    .program-title{
+      position: relative;
+      z-index: 2;
+
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: .95;
+      font-weight: 800;
+      color: white;
+
+      margin-bottom: 1.5rem;
+    }
+
+    .program-title span{
+      background: linear-gradient(135deg, #6ae2ff, #7b61ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .program-description{
+      position: relative;
+      z-index: 2;
+
+      max-width: 720px;
+      color: rgba(255,255,255,0.68);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+  </style>
+
 </head>
 
-<body class="bg-light">
+<body class="space-body">
 
-  <header class="bg-white border-bottom sticky-top">
-    <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">Museo Jumex</h1>
-      <nav class="d-flex gap-3">
-        <a href="index.html">Inicio</a>
-        <a href="about.html">El Museo</a>
-        <a href="contact.html">Visita</a>
-        <a href="tienda.html">Tienda</a>
-         <a href="auth.html">Registro</a>
-         <a href="carrito.html">Carrito</a>
-      </nav>
+<header class="bg-white border-bottom sticky-top">
+  <div class="container py-3 d-flex justify-content-between align-items-center">
+
+    <h1 class="h4 m-0 text-dark">ARTEMIS</h1>
+
+    <nav class="d-flex gap-3">
+      <a href="index.html">Mission</a>
+      <a href="about.html" class="active">Program</a>
+      <a href="contact.html">Transmission</a>
+      <a href="tienda.html">Store</a>
+      <a href="auth.html">Access</a>
+      <a href="carrito.html">Cart</a>
+
+      <span id="usuarioNav" class="user-badge"></span>
+    </nav>
+
+  </div>
+</header>
+
+<main class="container py-5">
+
+  <section class="program-hero">
+
+    <p class="program-label">
+      NASA ARTEMIS INITIATIVE
+    </p>
+
+    <h2 class="program-title">
+      Building Humanity’s <span>Next Lunar Era</span>
+    </h2>
+
+    <p class="program-description">
+      Explore NASA’s next generation lunar missions, advanced exploration systems, and the technology shaping humanity’s future beyond Earth.
+    </p>
+
+  </section>
+
+  <section class="bg-white p-5 rounded-4 shadow-sm border-0">
+
+    <!-- CAROUSEL -->
+    <div id="galeriaAbout" class="carousel slide mb-5" data-bs-ride="carousel">
+
+      <div class="carousel-inner rounded-4 overflow-hidden">
+
+        <div class="carousel-item active">
+          <img src="resources/ARTEMIS.2.jpg" class="d-block w-100">
+        </div>
+
+        <div class="carousel-item">
+          <img src="resources/ARTEMIS.4.png" class="d-block w-100">
+        </div>
+
+        <div class="carousel-item">
+          <img src="resources/ARTEMIS.3.jpeg" class="d-block w-100">
+        </div>
+
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#galeriaAbout" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#galeriaAbout" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+
     </div>
-  </header>
 
-  <main class="container py-5">
+    <!-- CONTENIDO -->
+    <div class="row g-4 align-items-start mb-5">
 
-    <section class="bg-white p-4 rounded-4 shadow-sm">
+      <div class="col-12 col-md-6">
+        <h3 class="h6 text-dark fw-semibold mb-2">
+          What is Artemis?
+        </h3>
 
-      <h2 class="h5 mb-2">Acerca del Museo Jumex</h2>
-      <p class="text-muted mb-4">
-        Información general sobre la institución, su arquitectura y su labor en el arte contemporáneo.
-      </p>
-
-      <!-- CAROUSEL -->
-      <div id="galeriaAbout" class="carousel slide mb-4" data-bs-ride="carousel">
-
-        <div class="carousel-inner rounded-3 overflow-hidden">
-          <div class="carousel-item active">
-            <img src="resources/MaquetaJumex.png" class="d-block w-100"> 
-          </div>
-
-          <div class="carousel-item">
-            <img src="resources/Duchamp.jpg" class="d-block w-100">
-          </div>
-
-          <div class="carousel-item">
-            <img src="resources/HuesosJumex.webp" class="d-block w-100">
-          </div>
-        </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#galeriaAbout" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Anterior</span>
-        </button>
-
-        <button class="carousel-control-next" type="button" data-bs-target="#galeriaAbout" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Siguiente</span>
-        </button>
-
+        <p class="mb-0 text-muted">
+          Artemis is NASA’s lunar exploration program designed to return
+          humans to the Moon and establish a long-term presence for future
+          deep space missions.
+        </p>
       </div>
 
-      <!-- CONTENIDO -->
-      <div class="row g-3 align-items-start mb-4">
-        <div class="col-12 col-md-6">
-          <h3 class="h6">¿Qué es el Museo Jumex?</h3>
-          <p class="mb-0">
-            El Museo Jumex es una institución dedicada al arte contemporáneo y forma parte de la
-            Fundación Jumex Arte Contemporáneo. Su programación incluye exposiciones temporales,
-            investigación y actividades públicas.
-          </p>
-        </div>
-        <div class="col-12 col-md-6">
-          <h3 class="h6">Arquitectura</h3>
-          <p class="mb-0">
-            El edificio fue diseñado por el arquitecto David Chipperfield y se caracteriza por una
-            arquitectura sobria que prioriza la experiencia espacial y el recorrido del visitante.
-          </p>
-        </div>
+      <div class="col-12 col-md-6">
+        <h3 class="h6 text-dark fw-semibold mb-2">
+          Mission Technology
+        </h3>
+
+        <p class="mb-0 text-muted">
+          The Artemis missions combine advanced spacecraft systems,
+          lunar landing technology, and next-generation engineering
+          to support sustainable human exploration.
+        </p>
       </div>
 
-      <!-- ACCORDION -->
-      <h3 class="h6 mb-3">Preguntas frecuentes</h3>
-
-      <div class="accordion" id="faqAbout">
-
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button"
-              data-bs-toggle="collapse" data-bs-target="#faqA1">
-              ¿Dónde se encuentra el Museo Jumex?
-            </button>
-          </h2>
-          <div id="faqA1" class="accordion-collapse collapse show" data-bs-parent="#faqAbout">
-            <div class="accordion-body">
-              El Museo Jumex se localiza en la colonia Granada, en la Ciudad de México,
-              frente a la Plaza Carso.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button"
-              data-bs-toggle="collapse" data-bs-target="#faqA2">
-              ¿Qué tipo de exposiciones presenta?
-            </button>
-          </h2>
-          <div id="faqA2" class="accordion-collapse collapse" data-bs-parent="#faqAbout">
-            <div class="accordion-body">
-              Presenta exposiciones de arte contemporáneo nacional e internacional,
-              con énfasis en prácticas artísticas actuales y discursos críticos.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button"
-              data-bs-toggle="collapse" data-bs-target="#faqA3">
-              ¿Cuál es el objetivo del museo?
-            </button>
-          </h2>
-          <div id="faqA3" class="accordion-collapse collapse" data-bs-parent="#faqAbout">
-            <div class="accordion-body">
-              Promover el arte contemporáneo, fomentar el diálogo cultural y acercar
-              al público a nuevas formas de pensamiento a través del arte.
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <footer class="bg-white border-top">
-    <div class="container py-3 text-center text-muted">
-      <small>© 2026 · Museo Jumex</small>
     </div>
-  </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ACCORDION -->
+    <h3 class="h6 text-dark fw-semibold mb-3">
+      Mission FAQ
+    </h3>
+
+    <div class="accordion accordion-flush" id="faqAbout">
+
+      <div class="accordion-item">
+
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#faqA1">
+
+            What is the goal of Artemis?
+
+          </button>
+        </h2>
+
+        <div id="faqA1" class="accordion-collapse collapse show" data-bs-parent="#faqAbout">
+          <div class="accordion-body">
+            The Artemis program aims to return astronauts to the Moon and prepare humanity for future missions to Mars.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="accordion-item">
+
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#faqA2">
+
+            Why is lunar exploration important?
+
+          </button>
+        </h2>
+
+        <div id="faqA2" class="accordion-collapse collapse" data-bs-parent="#faqAbout">
+          <div class="accordion-body">
+            Lunar exploration helps scientists develop technologies, research deep space environments,
+            and understand how humans can live beyond Earth.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="accordion-item">
+
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#faqA3">
+
+            Who is participating in Artemis?
+
+          </button>
+        </h2>
+
+        <div id="faqA3" class="accordion-collapse collapse" data-bs-parent="#faqAbout">
+          <div class="accordion-body">
+            NASA collaborates with international agencies, engineers,
+            scientists, and private aerospace companies as part of the Artemis missions.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="bg-white border-top mt-5">
+  <div class="container py-3 text-center text-muted">
+    <small>© 2026 · Artemis Lunar Systems</small>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

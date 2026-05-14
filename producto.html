@@ -3,168 +3,252 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Producto · Mi sitio</title>
+  <title>ARTEMIS Product · Lunar Gear</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
 
   <style>
-    /* ---------------------------------------------------------
-       MODAL DEL VISOR 3D
-    --------------------------------------------------------- */
 
-    /* El canvas ocupa todo el modal-body */
-    #visor3d-canvas-wrap {
-      position: relative;
-      width: 100%;
-      height: 480px;
-      background: #0a0a0f;
-      border-radius: 12px;
-      overflow: hidden;
-    }
+  /* ---------------------------------------------------------
+     VISOR 3D
+  --------------------------------------------------------- */
 
-    #visor3d-canvas-wrap canvas {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
-    }
+  #visor3d-canvas-wrap {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background: #0a0a0f;
+    border-radius: 18px;
+    overflow: hidden;
+  }
 
-    /* Loader dentro del visor */
-    #visor3d-loader {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0a0a0f;
-      color: rgba(255,255,255,0.3);
-      font-size: 13px;
-      font-family: system-ui, sans-serif;
-      letter-spacing: 0.08em;
-      transition: opacity 0.4s;
-      z-index: 5;
-    }
+  #visor3d-canvas-wrap canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
 
-    #visor3d-loader.oculto {
-      opacity: 0;
-      pointer-events: none;
-    }
+  #visor3d-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a0f;
+    color: #000;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    z-index: 5;
+    transition: opacity 0.4s;
+  }
 
-    /* Hint de controles */
-    .visor3d-hint {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #9ca3af;
-      text-align: center;
-    }
+  #visor3d-loader.oculto {
+    opacity: 0;
+    pointer-events: none;
+  }
 
-    .visor3d-hint span {
-      margin: 0 8px;
-    }
-  </style>
+  .visor3d-hint {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #000;
+    text-align: center;
+  }
+
+  .visor3d-hint span {
+    margin: 0 8px;
+  }
+
+</style>
 </head>
-<body>
 
+<body class="space-body">
+
+  <!-- HEADER -->
   <header class="bg-white border-bottom sticky-top">
     <div class="container py-3 d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">Mi sitio</h1>
+
+      <h1 class="h4 m-0 text-dark">
+        ARTEMIS
+      </h1>
+
       <nav class="d-flex gap-3">
-        <a href="index.html">Inicio</a>
-        <a href="about.html">Acerca</a>
-        <a href="tienda.html">Tienda</a>
-        <a href="contact.html">Contacto</a>
+
+        <a href="index.html">Mission</a>
+        <a href="about.html">Program</a>
+        <a href="contact.html">Transmission</a>
+        <a href="tienda.html" class="active">Store</a>
+        <a href="auth.html">Access</a>
+        <a href="carrito.html">Cart</a>
+
       </nav>
+
     </div>
   </header>
 
+  <!-- MAIN -->
   <main class="container py-5">
-    <div id="status" class="mb-3"></div>
 
-    <!-- Detalle del producto — el JS de Firebase inyecta aquí el HTML -->
-    <!-- Se agrega el botón "Ver en 3D" dentro del detalle via producto.js -->
-    <section id="productDetail" class="bg-white p-4 rounded-4 shadow-sm mb-4"></section>
+    <div class="mb-5">
 
-    <section class="bg-white p-4 rounded-4 shadow-sm mb-4">
-      <h3 class="h5 mb-3">Agregar review</h3>
+      <h2 class="display-6 fw-bold text-white">
+        Artemis Product Detail
+      </h2>
 
-      <form id="reviewForm" class="row g-3">
+      <p class="text-light opacity-75">
+        Explore advanced lunar equipment, futuristic aerospace technology,
+        and mission-inspired collectibles designed for the Artemis generation.
+      </p>
+
+    </div>
+
+    <div id="status" class="mb-4"></div>
+
+    <!-- PRODUCT DETAIL -->
+    <section
+      id="productDetail"
+      class="bg-white p-5 rounded-4 shadow-sm border-0 mb-4">
+    </section>
+
+    <!-- REVIEW FORM -->
+    <section class="bg-white p-5 rounded-4 shadow-sm border-0 mb-4">
+
+      <h3 class="h5 mb-4 text-dark">
+        Mission Review
+      </h3>
+
+      <form id="reviewForm" class="row g-4">
+
         <div class="col-12 col-md-4">
-          <label class="form-label">Nombre</label>
-          <input class="form-control" type="text" name="nombre" required>
+
+          <label class="form-label text-dark fw-semibold">
+            Commander Name
+          </label>
+
+          <input
+            class="form-control"
+            type="text"
+            name="nombre"
+            required>
+
         </div>
 
         <div class="col-12 col-md-8">
-          <label class="form-label">Review</label>
-          <input class="form-control" type="text" name="mensaje" required>
+
+          <label class="form-label text-dark fw-semibold">
+            Mission Feedback
+          </label>
+
+          <input
+            class="form-control"
+            type="text"
+            name="mensaje"
+            required>
+
         </div>
 
         <div class="col-12">
-          <button class="btn btn-success" type="submit">Enviar review</button>
+
+          <button class="btn btn-dark" type="submit">
+            Submit Review
+          </button>
+
         </div>
+
       </form>
 
-      <div id="reviewStatus" class="mt-3"></div>
+      <div id="reviewStatus" class="mt-4"></div>
+
     </section>
 
-    <section class="bg-white p-4 rounded-4 shadow-sm">
-      <h3 class="h5 mb-3">Reviews</h3>
+    <!-- REVIEWS -->
+    <section class="bg-white p-5 rounded-4 shadow-sm border-0">
+
+      <h3 class="h5 mb-4 text-dark">
+        Mission Reviews
+      </h3>
+
       <div id="reviewsList"></div>
+
     </section>
+
   </main>
 
-  <footer class="bg-white border-top">
+  <!-- FOOTER -->
+  <footer class="bg-white border-top mt-5">
+
     <div class="container py-3 text-center text-muted">
-      <small>© 2026 · Mi sitio</small>
+      <small>© 2026 · Artemis Lunar Systems</small>
     </div>
+
   </footer>
 
-
   <!-- =====================================================
-       MODAL VISOR 3D
+       MODAL 3D
   ====================================================== -->
   <div class="modal fade" id="modal3d" tabindex="-1" aria-hidden="true">
+
     <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
+
+      <div class="modal-content border-0 rounded-4 overflow-hidden">
 
         <div class="modal-header">
-          <h5 class="modal-title">Vista 3D del producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+          <h5 class="modal-title text-dark">
+            3D Product Viewer
+          </h5>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal">
+          </button>
+
         </div>
 
         <div class="modal-body">
-          <!-- Contenedor del canvas -->
+
           <div id="visor3d-canvas-wrap">
-            <div id="visor3d-loader">Cargando modelo…</div>
-            <!-- Three.js inyecta el canvas aquí -->
+
+            <div id="visor3d-loader">
+              Loading 3D Model...
+            </div>
+
           </div>
 
-          <!-- Instrucciones de uso -->
           <p class="visor3d-hint">
-            <span>🖱 Arrastrar → rotar</span>
-            <span>⚲ Rueda → zoom</span>
-            <span>↕ Click der. → mover</span>
+            <span>🖱 Drag → rotate</span>
+            <span>⚲ Scroll → zoom</span>
+            <span>↕ Right click → move</span>
           </p>
+
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+          <button
+            class="btn btn-secondary"
+            data-bs-dismiss="modal">
+
+            Close
+
+          </button>
+
         </div>
 
       </div>
+
     </div>
+
   </div>
 
-
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Firebase -->
   <script type="module" src="js/producto.js"></script>
 
-
-  <!-- =====================================================
-       THREE.JS — visor del modal
-  ====================================================== -->
+  <!-- THREE -->
   <script type="importmap">
     {
       "imports": {
@@ -175,102 +259,145 @@
   </script>
 
   <script type="module">
+
     import * as THREE from 'three';
-    import { GLTFLoader }    from 'three/addons/loaders/GLTFLoader.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
     const wrap = document.getElementById('visor3d-canvas-wrap');
     const loader3d = document.getElementById('visor3d-loader');
 
-    // Setup
-    const scene    = new THREE.Scene();
-    const camera   = new THREE.PerspectiveCamera(50, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      wrap.clientWidth / wrap.clientHeight,
+      0.1,
+      100
+    );
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true
+    });
 
     camera.position.set(0, 0, 5);
+
     renderer.setSize(wrap.clientWidth, wrap.clientHeight);
     renderer.setPixelRatio(devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
+
     wrap.appendChild(renderer.domElement);
 
-    // Controles
     const controls = new OrbitControls(camera, renderer.domElement);
+
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
 
-    // Luces
     scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
     const luzPrincipal = new THREE.DirectionalLight(0xffffff, 3);
+
     luzPrincipal.position.set(5, 8, 5);
+
     scene.add(luzPrincipal);
+
     const luzRelleno = new THREE.DirectionalLight(0xffffff, 1);
+
     luzRelleno.position.set(-5, -3, -3);
+
     scene.add(luzRelleno);
 
-    // El modelo se carga cuando el usuario abre el modal (ver evento show.bs.modal abajo)
-
-    // Loop
     (function animar() {
+
       requestAnimationFrame(animar);
+
       controls.update();
+
       renderer.render(scene, camera);
+
     })();
 
-    // Cuando el modal abre:
-    // 1. Leemos la ruta del modelo desde el botón que lo disparó
-    // 2. Ajustamos el tamaño del renderer (estaba oculto, dimensiones eran 0)
     document.getElementById('modal3d').addEventListener('show.bs.modal', (e) => {
-      // e.relatedTarget es el botón que abrió el modal
+
       const rutaModelo = e.relatedTarget?.dataset?.modelo;
 
       if (rutaModelo) {
-        // Limpiamos el modelo anterior si había uno
+
         scene.children
           .filter(obj => obj.name === 'modeloCargado')
           .forEach(obj => scene.remove(obj));
 
         loader3d.classList.remove('oculto');
-        loader3d.textContent = 'Cargando modelo…';
+
+        loader3d.textContent = 'Loading 3D Model...';
 
         new GLTFLoader().load(
+
           './' + rutaModelo,
+
           (gltf) => {
+
             const modelo = gltf.scene;
+
             modelo.name = 'modeloCargado';
 
-            const caja   = new THREE.Box3().setFromObject(modelo);
+            const caja = new THREE.Box3().setFromObject(modelo);
+
             const centro = new THREE.Vector3();
+
             const tamaño = new THREE.Vector3();
+
             caja.getCenter(centro);
+
             caja.getSize(tamaño);
+
             modelo.position.sub(centro);
+
             modelo.scale.setScalar(3 / tamaño.length());
 
             scene.add(modelo);
+
             loader3d.classList.add('oculto');
+
           },
+
           null,
+
           (err) => {
+
             console.error(err);
-            loader3d.textContent = 'No se pudo cargar el modelo.';
+
+            loader3d.textContent = 'Unable to load model.';
+
           }
+
         );
+
       }
+
     });
 
     document.getElementById('modal3d').addEventListener('shown.bs.modal', () => {
+
       camera.aspect = wrap.clientWidth / wrap.clientHeight;
+
       camera.updateProjectionMatrix();
+
       renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+
     });
 
-    // Responsive
     window.addEventListener('resize', () => {
+
       camera.aspect = wrap.clientWidth / wrap.clientHeight;
+
       camera.updateProjectionMatrix();
+
       renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+
     });
+
   </script>
 
 </body>

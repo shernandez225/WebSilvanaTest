@@ -23,7 +23,7 @@ for (const p of lista) {
             <span class="badge text-bg-dark">${p.categoria}</span>
           </div>
           <p class="text-muted mb-0">$${p.precio}</p>
-            <button class="btn btn-success btn-add" data-id="${p.id}">
+            <button class="btn btn-dark btn-add" data-id="${p.id}">
           Agregar
         </button>
         </div>
