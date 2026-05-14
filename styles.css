@@ -1,6 +1,7 @@
 /* =========================
    1. Variables de Diseño (Temas)
 ========================= */
+
 :root {
   /* Modo Claro (Default) */
   --text: #111;
@@ -10,6 +11,23 @@
   --card: rgba(255, 255, 255, 0.96);
   --border: rgba(0, 0, 0, .08);
   --nav-bg: rgba(255, 255, 255, 0.8);
+  
+  /* Mantenemos tus medidas */
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --shadow-sm: 0 6px 18px rgba(0,0,0,.08);
+  --radius: 18px;
+}
+
+/* El navegador usará estos valores cuando JS active 'data-theme' */
+[data-theme="dark"] {
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --bg-page: #050816;
+  --bg-gradient: linear-gradient(0deg, #050816, #0b0e1f);
+  --card: #1e293b;
+  --border: rgba(255, 255, 255, 0.1);
+  --nav-bg: rgba(15, 23, 42, 0.9);
+  --shadow: 0 10px 30px rgba(0,0,0,.5);
 }
 
 [data-theme="dark"] {
@@ -28,15 +46,15 @@
 ========================= */
 body {
   min-height: 100vh;
-  background: var(--bg-gradient);
+  background: var(--bg-gradient); /* Ahora es dinámico */
+  color: var(--text);             /* El texto también cambia */
   background-attachment: fixed;
-  color: var(--text);
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease; /* Para que el cambio sea suave */
 }
 
 /* Modificamos tus clases existentes para que sean dinámicas */
 .bg-white {
-  background: var(--card) !important;
+  background: var(--card) !important; /* En vez de rgba(255,255,255,0.96) */
   backdrop-filter: blur(12px);
 }
 

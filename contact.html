@@ -9,87 +9,87 @@
   <link href="styles.css" rel="stylesheet">
 
   <style>
+    /* RETO 3: ESTILOS DE TRANSICIÓN */
+    .page-transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0b1020; 
+      z-index: 9999;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .fade-in { opacity: 0; pointer-events: none; }
+    .fade-out { opacity: 1; pointer-events: all; }
 
+    /* --- Tus estilos anteriores --- */
     .transmission-hero{
       position: relative;
       overflow: hidden;
       border-radius: 28px;
       padding: 5rem 4rem;
       margin-bottom: 3rem;
-
       background:
         radial-gradient(circle at top left, rgba(123,97,255,0.35), transparent 35%),
         radial-gradient(circle at bottom right, rgba(106,226,255,0.18), transparent 30%),
         linear-gradient(145deg, #0b1020, #11192e);
-
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 20px 60px rgba(0,0,0,0.45);
     }
-
     .transmission-hero::before{
       content:'';
       position:absolute;
       inset:0;
-      background-image:
-        radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
       background-size: 30px 30px;
       opacity:0.15;
       pointer-events:none;
     }
-
     .transmission-label{
       position: relative;
       z-index: 2;
-
       font-size: 12px;
       letter-spacing: .25em;
       text-transform: uppercase;
       color: #7b61ff;
       font-weight: 700;
-
       margin-bottom: 1rem;
     }
-
     .transmission-title{
       position: relative;
       z-index: 2;
-
       font-size: clamp(2.8rem, 6vw, 5rem);
       line-height: .95;
       font-weight: 800;
       color: white;
-
       margin-bottom: 1.5rem;
     }
-
     .transmission-title span{
       background: linear-gradient(135deg, #6ae2ff, #7b61ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .transmission-description{
       position: relative;
       z-index: 2;
-
       max-width: 720px;
       color: rgba(255,255,255,0.68);
       font-size: 1.05rem;
       line-height: 1.7;
     }
-
   </style>
-
 </head>
 
 <body class="space-body">
 
+<div id="transition-overlay" class="page-transition-overlay"></div>
+
 <header class="bg-white border-bottom sticky-top">
   <div class="container py-3 d-flex justify-content-between align-items-center">
-
     <h1 class="h4 m-0 text-dark">ARTEMIS</h1>
-
     <nav class="d-flex gap-3">
       <a href="index.html">Mission</a>
       <a href="about.html">Program</a>
@@ -97,116 +97,52 @@
       <a href="tienda.html">Store</a>
       <a href="auth.html">Access</a>
       <a href="carrito.html">Cart</a>
-
+      <button id="theme-toggle" class="btn btn-sm btn-outline-secondary border-0">
+        <span id="theme-icon">🌙</span>
+      </button>
       <span id="usuarioNav" class="user-badge"></span>
     </nav>
-
   </div>
 </header>
 
 <main class="container py-5">
-
   <section class="transmission-hero">
-
-    <p class="transmission-label">
-      ARTEMIS COMMUNICATION NETWORK
-    </p>
-
-    <h2 class="transmission-title">
-      Establish a Direct <span>Mission Transmission</span>
-    </h2>
-
-    <p class="transmission-description">
-      Send encrypted communications to the Artemis mission team through the lunar transmission interface powered by Firebase Realtime Database.
-    </p>
-
+    <p class="transmission-label">ARTEMIS COMMUNICATION NETWORK</p>
+    <h2 class="transmission-title">Establish a Direct <span>Mission Transmission</span></h2>
+    <p class="transmission-description">Send encrypted communications to the Artemis mission team through the lunar transmission interface powered by Firebase Realtime Database.</p>
   </section>
 
   <section class="bg-white p-5 rounded-4 shadow-sm border-0">
-
     <form id="contactForm" class="row g-4">
-
       <div class="col-12 col-md-6">
-        <label class="form-label text-dark fw-semibold">
-          Commander Name
-        </label>
-
-        <input
-          class="form-control"
-          type="text"
-          name="nombre"
-          required>
+        <label class="form-label text-dark fw-semibold">Commander Name</label>
+        <input class="form-control" type="text" name="nombre" required>
       </div>
-
       <div class="col-12 col-md-6">
-        <label class="form-label text-dark fw-semibold">
-          Mission Email
-        </label>
-
-        <input
-          class="form-control"
-          type="email"
-          name="email"
-          required>
+        <label class="form-label text-dark fw-semibold">Mission Email</label>
+        <input class="form-control" type="email" name="email" required>
       </div>
-
       <div class="col-12">
-        <label class="form-label text-dark fw-semibold">
-          Transmission Message
-        </label>
-
-        <textarea
-          class="form-control"
-          name="mensaje"
-          rows="5"
-          required></textarea>
+        <label class="form-label text-dark fw-semibold">Transmission Message</label>
+        <textarea class="form-control" name="mensaje" rows="5" required></textarea>
       </div>
-
       <div class="col-12 col-md-6">
-
-        <label class="form-label text-dark fw-semibold">
-          Preferred Launch Window
-        </label>
-
+        <label class="form-label text-dark fw-semibold">Preferred Launch Window</label>
         <select class="form-select" name="diaPreferido" required>
-
           <option value="Artemis I">Artemis I</option>
           <option value="Artemis II">Artemis II</option>
           <option value="Artemis III">Artemis III</option>
           <option value="Deep Space Training">Deep Space Training</option>
           <option value="Lunar Surface Mission">Lunar Surface Mission</option>
-
         </select>
-
       </div>
-
       <div class="col-12 d-flex gap-2 flex-wrap">
-
-        <button
-          id="submitBtn"
-          class="btn btn-dark"
-          type="submit">
-
-          Transmit Signal
-
-        </button>
-
-        <button
-          class="btn btn-outline-dark"
-          type="reset">
-
-          Reset Console
-
-        </button>
-
+        <button id="submitBtn" class="btn btn-dark" type="submit">Transmit Signal</button>
+        <button class="btn btn-outline-dark" type="reset">Reset Console</button>
       </div>
-
     </form>
-
     <div id="status" class="mt-4"></div>
-
   </section>
-
 </main>
 
 <footer class="bg-white border-top mt-5">
@@ -215,7 +151,6 @@
   </div>
 </footer>
 
-<!-- Firebase + Realtime Database -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
   import { getDatabase, ref, push, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
@@ -231,14 +166,12 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-
   const form = document.getElementById("contactForm");
   const statusDiv = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const data = {
       nombre: form.nombre.value.trim(),
       email: form.email.value.trim(),
@@ -247,53 +180,60 @@
       createdAt: serverTimestamp(),
       page: location.href
     };
-
     if (!data.nombre || !data.email || !data.mensaje || !data.diaPreferido) {
-
-      statusDiv.innerHTML = `
-        <div class="alert alert-warning">
-          Complete all transmission fields.
-        </div>`;
-
+      statusDiv.innerHTML = `<div class="alert alert-warning">Complete all transmission fields.</div>`;
       return;
     }
-
-    statusDiv.innerHTML = `
-      <div class="alert alert-info">
-        Establishing connection...
-      </div>`;
-
+    statusDiv.innerHTML = `<div class="alert alert-info">Establishing connection...</div>`;
     submitBtn.disabled = true;
-
     try {
-
       const newRef = push(ref(db, "contactos"));
-
       await set(newRef, data);
-
-      statusDiv.innerHTML = `
-        <div class="alert alert-success">
-          ✅ Transmission successfully delivered.
-        </div>`;
-
+      statusDiv.innerHTML = `<div class="alert alert-success">✅ Transmission successfully delivered.</div>`;
       form.reset();
-
     } catch (err) {
-
-      console.error(err);
-
-      statusDiv.innerHTML = `
-        <div class="alert alert-danger">
-          ❌ Transmission error detected:
-          <strong>${err?.code || "sin código"}</strong><br>
-          ${err?.message || "sin mensaje"}
-        </div>`;
-
+      statusDiv.innerHTML = `<div class="alert alert-danger">❌ Transmission error detected: <strong>${err?.code || "sin código"}</strong><br>${err?.message || "sin mensaje"}</div>`;
     } finally {
-
       submitBtn.disabled = false;
-
     }
+  });
+</script>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  const root = document.documentElement;
+  const overlay = document.getElementById('transition-overlay');
+
+  // MODO OSCURO
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  applyTheme(savedTheme);
+  btn.addEventListener('click', () => {
+    const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+  });
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    if(theme === 'dark') { document.body.classList.add('space-body'); } 
+    else { document.body.classList.remove('space-body'); }
+  }
+
+  // TRANSICIÓN (RETO 3)
+  window.addEventListener('load', () => {
+    overlay.classList.add('fade-in');
+  });
+
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (link.href.includes(window.location.pathname) || link.getAttribute('href').startsWith('#')) return;
+      e.preventDefault();
+      const destination = link.href;
+      overlay.classList.remove('fade-in');
+      overlay.classList.add('fade-out');
+      setTimeout(() => { window.location.href = destination; }, 500);
+    });
   });
 </script>
 
